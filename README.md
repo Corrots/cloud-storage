@@ -12,3 +12,8 @@ File store server.
 * 减少传输失败后重试的流量和时间
 
 ## 分块上传
+
+## redis
+```bash
+docker run -itd --name redis-test -p 6379:6379 redis
+```
