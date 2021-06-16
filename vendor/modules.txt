@@ -1,3 +1,45 @@
-# github.com/gomodule/redigo v1.8.5
+# github.com/cespare/xxhash/v2 v2.1.1
+github.com/cespare/xxhash/v2
+# github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f
+github.com/dgryski/go-rendezvous
+# github.com/go-redis/redis/v8 v8.10.0
 ## explicit
-github.com/gomodule/redigo/redis
+github.com/go-redis/redis/v8
+github.com/go-redis/redis/v8/internal
+github.com/go-redis/redis/v8/internal/hashtag
+github.com/go-redis/redis/v8/internal/hscan
+github.com/go-redis/redis/v8/internal/pool
+github.com/go-redis/redis/v8/internal/proto
+github.com/go-redis/redis/v8/internal/rand
+github.com/go-redis/redis/v8/internal/util
+# github.com/gomodule/redigo v2.0.0+incompatible
+## explicit
+# github.com/isnlan/coral v0.0.0-20210616095352-13b0e2549054
+## explicit
+# github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
+## explicit
+github.com/op/go-logging
+# go.opentelemetry.io/otel v0.20.0
+go.opentelemetry.io/otel/attribute
+go.opentelemetry.io/otel/codes
+go.opentelemetry.io/otel/internal
+go.opentelemetry.io/otel/internal/baggage
+go.opentelemetry.io/otel/internal/global
+go.opentelemetry.io/otel/internal/trace/noop
+go.opentelemetry.io/otel/propagation
+go.opentelemetry.io/otel/unit
+# go.opentelemetry.io/otel/metric v0.20.0
+go.opentelemetry.io/otel/metric
+go.opentelemetry.io/otel/metric/global
+go.opentelemetry.io/otel/metric/number
+go.opentelemetry.io/otel/metric/registry
+# go.opentelemetry.io/otel/trace v0.20.0
+go.opentelemetry.io/otel/trace
+# go.uber.org/atomic v1.8.0
+## explicit
+# go.uber.org/multierr v1.7.0
+## explicit
+# go.uber.org/zap v1.17.0
+## explicit
+# google.golang.org/grpc v1.38.0
+## explicit
