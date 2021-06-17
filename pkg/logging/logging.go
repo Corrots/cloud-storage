@@ -12,7 +12,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/isnlan/coral/pkg/logging/enc"
+	"github.com/corrots/cloud-storage/pkg/logging/enc"
 	"github.com/op/go-logging"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
