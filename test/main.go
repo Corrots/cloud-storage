@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/corrots/cloud-storage/db"
+	"github.com/corrots/cloud-storage/pkg/db"
+	"github.com/corrots/cloud-storage/pkg/logging"
 	"github.com/corrots/cloud-storage/service"
 )
+
+var logger = logging.MustGetLogger("ingress")
 
 func main() {
 	if err := db.InitRedis(":6379", 0, ""); err != nil {
@@ -20,5 +21,8 @@ func main() {
 	if err := cacheSvc.GetI("k1", &val); err != nil {
 		panic(err)
 	}
-	fmt.Println(val)
+	logger.Info(val)
+	logger.Warn(val)
+	logger.Error(val)
+	logger.Fatal(val)
 }

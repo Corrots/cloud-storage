@@ -3,11 +3,10 @@ package service
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"time"
 
-	"github.com/corrots/cloud-storage/db"
+	"github.com/corrots/cloud-storage/pkg/db"
+	"github.com/corrots/cloud-storage/pkg/errors"
 	"github.com/go-redis/redis/v8"
 )
 
@@ -39,7 +38,7 @@ func (svc *CacheService) GetI(key string, i interface{}) error {
 
 	bytes, _ := stringCmd.Bytes()
 	if err := json.Unmarshal(bytes, i); err != nil {
-		return err
+		return errors.Wrap(err, "json unmarshal err")
 	}
 
 	return nil
@@ -59,9 +58,9 @@ func (svc *CacheService) SetWithTTL(key string, val interface{}, ttl time.Durati
 
 	bytes, err := json.Marshal(val)
 	if err != nil {
-		return fmt.Errorf("json marshal err: %v\n", err)
+		return errors.Wrap(err, "json marshal err")
 	}
 
 	statusCmd := svc.cli.Set(ctx, key, bytes, ttl)
-	return statusCmd.Err()
+	return errors.WithStack(statusCmd.Err())
 }

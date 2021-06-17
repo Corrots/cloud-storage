@@ -15,5 +15,5 @@ File store server.
 
 ## redis
 ```bash
-docker run -itd --name redis-test -p 6379:6379 redis
+docker run -itd --name redis-dev -p 6379:6379 redis
 ```
