@@ -1,31 +1,26 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/corrots/cloud-storage/controller"
 	"github.com/corrots/cloud-storage/pkg/xgin"
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := xgin.New()
 
-	HomeAPI := router.Group("/index")
+	View := router.Group("/")
 	{
 		router.LoadHTMLGlob("static/view/*")
 		router.Static("/static", "./static")
-		HomeAPI.GET("/", func(c *gin.Context) {
-			c.HTML(http.StatusOK, "home.html", nil)
-		})
+		View.GET("/", controller.Home)
+		View.GET("/upload", controller.Upload)
 	}
 
 	fileAPI := router.Group("/file")
 	{
-
 		fileAPI.GET("/query")
 		fileAPI.GET("/download")
-		fileAPI.POST("/upload")
+		fileAPI.POST("/upload", controller.UploadHandler)
 		fileAPI.POST("/update")
 		fileAPI.POST("/delete")
 	}
