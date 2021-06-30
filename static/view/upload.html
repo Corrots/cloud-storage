@@ -58,7 +58,7 @@
   function onUpload() {
     var upUrl = "/file/upload?" + queryParams();
     var upEntry = localStorage.getItem("uploadEntry");
-    if (upEntry != "" ) {
+    if (upEntry !== null ) {
       if (upEntry.indexOf("http:")>=0) {
         upUrl = upEntry + "/file/upload?" + queryParams();
       } else {
