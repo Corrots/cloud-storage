@@ -1,47 +1,58 @@
 package controller
 
 import (
-	"github.com/corrots/cloud-storage/code"
-	"github.com/gin-gonic/gin"
-	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	"os"
-	"time"
+	"path/filepath"
+
+	"github.com/corrots/cloud-storage/code"
+	"github.com/corrots/cloud-storage/pkg/crypto"
+	"github.com/corrots/cloud-storage/pkg/errors"
+	"github.com/corrots/cloud-storage/pkg/files"
+	"github.com/corrots/cloud-storage/pkg/response"
+
+	"github.com/gin-gonic/gin"
 )
 
+const tempDir = "./tmp"
+
 func UploadHandler(c *gin.Context) {
-	form, err := c.MultipartForm()
+	fh, err := c.FormFile("file")
 	if err != nil {
+		panic(code.ErrUploaded)
+	}
+
+	if err := save(fh); err != nil {
 		panic(code.ErrInternalServer)
 	}
 
-	file := form.File["file"][0]
-	dst := "tmp/" + time.Now().Format("20060102150405-") + file.Filename
-	//fmt.Println("dst: ", dst)
-	if err := saveUploadedFile(file, dst); err != nil {
-		panic(code.ErrInternalServer)
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"code":    0,
-		"message": "ok",
-	})
+	c.JSON(http.StatusOK, response.New(nil))
 }
 
-func saveUploadedFile(file *multipart.FileHeader, dst string) error {
-	src, err := file.Open()
+func save(fh *multipart.FileHeader) error {
+	file, err := fh.Open()
 	if err != nil {
 		return err
 	}
-	defer src.Close()
+	defer file.Close()
 
-	out, err := os.Create(dst)
+	bytes, err := ioutil.ReadAll(file)
 	if err != nil {
 		return err
 	}
-	defer out.Close()
 
-	_, err = io.Copy(out, src)
-	return err
+	if err := files.MkdirAll("./tmp"); err != nil {
+		return err
+	}
+
+	dst := getFilepath(crypto.ToMD5(bytes), fh.Filename)
+	if err = files.SaveUploadedFile(fh, dst); err != nil {
+		return errors.WithMessage(err, "save upload file err")
+	}
+	return nil
+}
+
+func getFilepath(hashed, name string) string {
+	return filepath.Join(tempDir, hashed+"-"+name)
 }
