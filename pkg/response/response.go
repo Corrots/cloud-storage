@@ -12,13 +12,12 @@ type Response struct {
 	Data        interface{} `json:"data,omitempty"`
 }
 
-func New(data interface{}) *Response {
-	resp := Response{
+func OK(data interface{}) *Response {
+	return &Response{
 		ErrorCode:   SuccessCode,
 		Description: SuccessMsg,
 		Data:        data,
 	}
-	return &resp
 }
 
 func Fail(code int, desc string) *Response {

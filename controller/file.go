@@ -27,7 +27,7 @@ func UploadHandler(c *gin.Context) {
 		panic(code.ErrInternalServer)
 	}
 
-	c.JSON(http.StatusOK, response.New(nil))
+	c.JSON(http.StatusOK, response.OK(nil))
 }
 
 func save(fh *multipart.FileHeader) error {
