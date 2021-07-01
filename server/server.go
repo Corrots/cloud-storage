@@ -21,7 +21,7 @@ func New() *Server {
 func (s *Server) Initialize() error {
 	// init config
 	if err := application.InitConfig(&config.GlobalConfig); err != nil {
-		return errors.WithMessage(err, "app init config err")
+		return errors.WithMessage(err, "init config err")
 	}
 	// init redis
 	// init mysql
