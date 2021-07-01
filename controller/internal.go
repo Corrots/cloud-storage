@@ -17,6 +17,13 @@ func mustBindContext(ctx *gin.Context, req interface{}) {
 	}
 }
 
+func mustBindQuery(ctx *gin.Context, req interface{}) {
+	if err := xgin.ContextBindQueryWithValid(ctx, req); err != nil {
+		logger.Errorf("parameter validation err: %v\n", err)
+		panic(code.ErrParameter())
+	}
+}
+
 func checkError(err error) {
 	if err != nil {
 		switch e := err.(type) {
