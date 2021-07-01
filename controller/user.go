@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserLogin(c *gin.Context) {
+func (a *ApiCtrl) UserLogin(c *gin.Context) {
 	var req model.RequestLogin
 
 	mustBindContext(c, &req)

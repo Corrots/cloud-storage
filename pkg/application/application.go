@@ -17,7 +17,7 @@ import (
 
 const cmdRoot = "SVR"
 
-var Name string
+//var Name string
 
 type Server interface {
 	Initialize() error
@@ -45,7 +45,7 @@ func New(name string) *Application {
 	cobra.OnInitialize(initConfig)
 	initializeLogging()
 
-	Name = name
+	//Name = name
 
 	return &Application{
 		name: name,

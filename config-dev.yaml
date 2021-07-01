@@ -1,0 +1,19 @@
+server:
+  addr: 0.0.0.0:8080
+
+dao:
+  redis:
+    uri: 127.0.0.1:6379
+    password:
+    db: 0
+  mongo:
+    uri: mongodb://admin:admin@127.0.0.1:27017/admin?authSource=admin
+  mysql:
+    uri: 127.0.0.1:3306
+    username: root
+    password: test123
+
+consul: 127.0.0.1:8500
+
+rabbitmq: amqp://admin:admin@127.0.0.1:5672/
+
