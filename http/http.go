@@ -5,6 +5,7 @@ import (
 
 	"github.com/corrots/cloud-storage/controller"
 	"github.com/corrots/cloud-storage/pkg/xgin"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +23,9 @@ func New(addr string, ctrl *controller.ApiCtrl) *Server {
 		router.Static("/static", "./static")
 		View.GET("/", ctrl.Home)
 		View.GET("/upload", ctrl.Upload)
+		View.GET("/download", ctrl.Download)
+		View.GET("/signin", ctrl.SignIn)
+		View.GET("/signup", ctrl.SignUp)
 	}
 
 	fileAPI := router.Group("/file")

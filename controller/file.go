@@ -17,6 +17,7 @@ func (a *ApiCtrl) UploadHandler(c *gin.Context) {
 
 	err = a.FileService.Save(fh)
 	if err != nil {
+		logger.Errorf("file save err: %v\n", err)
 		panic(code.ErrInternalServer)
 	}
 

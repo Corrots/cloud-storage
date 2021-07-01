@@ -10,7 +10,8 @@ type config struct {
 }
 
 type Server struct {
-	Addr string `mapstructure:"addr"`
+	Addr   string `mapstructure:"addr"`
+	Tmpdir string `mapstructure:"tmpdir"`
 }
 
 type Dao struct {

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func MkdirAll(path string) error {
+func Mkdir(path string) error {
 	ok, err := Exists(path)
 	if err != nil {
 		return err
