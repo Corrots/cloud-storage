@@ -14,13 +14,17 @@ type Executor interface {
 	Exec(query string, args ...interface{}) (sql.Result, error)
 }
 
-func InitSqlxDB(dsn string) *sqlx.DB {
-	db := sqlx.MustConnect("mysql", dsn)
+func InitSqlxDB(dsn string) error {
+	db, err := sqlx.Connect("mysql", dsn)
+	if err != nil {
+		return err
+	}
 	db.SetMaxOpenConns(32)
 	db.SetMaxIdleConns(2)
 	// https://github.com/go-sql-driver/mysql/issues/446
 	db.SetConnMaxLifetime(time.Second * 14400)
-	return db
+	_sqlxDB = db
+	return nil
 }
 
 func GetSqlxDB() *sqlx.DB {

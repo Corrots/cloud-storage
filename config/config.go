@@ -30,6 +30,7 @@ type Mysql struct {
 	Uri      string `mapstructure:"uri"`
 	Username string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
+	DB       string `mapstructure:"db"`
 }
 
 type Mongo struct {
