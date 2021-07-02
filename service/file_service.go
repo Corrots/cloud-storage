@@ -46,6 +46,18 @@ func (svc *FileService) Save(fh *multipart.FileHeader) error {
 	return nil
 }
 
+func (svc *FileService) Download(filename string) (string, error) {
+	path := filepath.Join(tempDir(), filename)
+	ok, err := files.Exists(path)
+	if err != nil {
+		return "", err
+	}
+	if !ok {
+		return "", errors.WithMessage(err, "file not exist")
+	}
+	return path, nil
+}
+
 func tempDir() string {
 	// get the home directory for the executing user.
 	home, err := homedir.Dir()

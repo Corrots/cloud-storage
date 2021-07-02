@@ -1,16 +1,12 @@
 package controller
 
 import (
-	"net/http"
-
 	"github.com/corrots/cloud-storage/code"
-	"github.com/corrots/cloud-storage/pkg/response"
-
 	"github.com/gin-gonic/gin"
 )
 
-func (a *ApiCtrl) UploadHandler(c *gin.Context) {
-	fh, err := c.FormFile("file")
+func (a *ApiCtrl) FileUpload(ctx *gin.Context) {
+	fh, err := ctx.FormFile("file")
 	if err != nil {
 		panic(code.ErrUploaded)
 	}
@@ -21,5 +17,15 @@ func (a *ApiCtrl) UploadHandler(c *gin.Context) {
 		panic(code.ErrInternalServer)
 	}
 
-	c.JSON(http.StatusOK, response.OK(nil))
+	a.response(ctx, nil)
+}
+
+func (a *ApiCtrl) FileDownload(ctx *gin.Context) {
+	filename := "b56a11515cb1062ad5716069ccc0931b-p2620309098.jpg"
+	path, err := a.FileService.Download(filename)
+	if err != nil {
+		logger.Errorf("file download err: %v\n", err)
+		panic(code.ErrInternalServer)
+	}
+	ctx.FileAttachment(path, filename)
 }

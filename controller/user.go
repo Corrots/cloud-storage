@@ -20,5 +20,5 @@ func (a *ApiCtrl) UserLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, response.OK(nil))
+	a.response(c, nil)
 }

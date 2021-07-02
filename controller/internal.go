@@ -1,11 +1,14 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/corrots/cloud-storage/code"
 	"github.com/corrots/cloud-storage/pkg/errors"
 	"github.com/corrots/cloud-storage/pkg/logging"
 	"github.com/corrots/cloud-storage/pkg/xgin"
 	"github.com/gin-gonic/gin"
+	"github.com/isnlan/coral/pkg/response"
 )
 
 var logger = logging.MustGetLogger("controller")
@@ -22,6 +25,17 @@ func mustBindQuery(ctx *gin.Context, req interface{}) {
 		logger.Errorf("parameter validation err: %v\n", err)
 		panic(code.ErrParameter())
 	}
+}
+
+func (a *ApiCtrl) response(ctx *gin.Context, data interface{}) {
+	switch data.(type) {
+	default:
+		ctx.JSON(http.StatusOK, response.New(data))
+	}
+}
+
+func (a *ApiCtrl) html(ctx *gin.Context, name string) {
+	ctx.HTML(http.StatusOK, name, nil)
 }
 
 func checkError(err error) {

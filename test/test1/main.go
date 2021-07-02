@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"sync"
 	"time"
@@ -15,17 +16,31 @@ func main() {
 	}
 	defer file.Close()
 
-	file.WriteString("main goroutine: ")
-
 	done := make(chan struct{}, 1)
 
+	//for {
+	//	select {
+	//	case <-timer.C:
+	//		return
+	//	case <-done:
+	//		return
+	//	default:
+	//		file.WriteString("main goroutine: \n")
+	//	}
+	//}
+
 	go func() {
-		mutex.Lock()
+		//mutex.Lock()
 		// file input
 		file.Write([]byte(time.Now().Format("2006-01-02 15:04:05")))
 
-		mutex.Unlock()
+		//mutex.Unlock()
 		done <- struct{}{}
+		fmt.Println("done")
+	}()
+
+	go func() {
+
 	}()
 
 	<-done

@@ -17,6 +17,20 @@ type Server struct {
 func New(addr string, ctrl *controller.ApiCtrl) *Server {
 	router := xgin.New()
 
+	fileAPI := router.Group("/file")
+	{
+		fileAPI.GET("/query")
+		fileAPI.GET("/download", ctrl.FileDownload)
+		fileAPI.POST("/upload", ctrl.FileUpload)
+		fileAPI.POST("/update")
+		fileAPI.POST("/delete")
+	}
+
+	userAPI := router.Group("/user")
+	{
+		userAPI.POST("/login", ctrl.UserLogin)
+	}
+
 	View := router.Group("/")
 	{
 		router.LoadHTMLGlob("static/view/*")
@@ -28,21 +42,6 @@ func New(addr string, ctrl *controller.ApiCtrl) *Server {
 		View.GET("/signup", ctrl.SignUp)
 	}
 
-	fileAPI := router.Group("/file")
-	{
-		fileAPI.GET("/query")
-		fileAPI.GET("/download")
-		fileAPI.POST("/upload", ctrl.UploadHandler)
-		fileAPI.POST("/update")
-		fileAPI.POST("/delete")
-	}
-
-	userAPI := router.Group("/user")
-	{
-		userAPI.POST("/login", ctrl.UserLogin)
-	}
-
-	//router.Run(":8080")
 	return &Server{
 		addr:   addr,
 		router: router,
