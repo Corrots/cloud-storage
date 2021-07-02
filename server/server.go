@@ -29,7 +29,9 @@ func (s *Server) Initialize() error {
 	// init redis
 
 	// init mysql
-	if err := db.InitSqlxDB(dsn()); err != nil {
+	mysql := config.GlobalConfig.Dao.Mysql
+	err := db.InitSqlxDB(mysql.Username, mysql.Password, mysql.Uri, mysql.DB)
+	if err != nil {
 		return errors.WithMessage(err, "init mysql err")
 	}
 

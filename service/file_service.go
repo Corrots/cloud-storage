@@ -5,6 +5,10 @@ import (
 	"mime/multipart"
 	"path/filepath"
 
+	"github.com/corrots/cloud-storage/pkg/db"
+
+	"github.com/jmoiron/sqlx"
+
 	"github.com/corrots/cloud-storage/config"
 	"github.com/corrots/cloud-storage/pkg/crypto"
 	"github.com/corrots/cloud-storage/pkg/errors"
@@ -15,12 +19,19 @@ import (
 )
 
 type FileService struct {
+	db *sqlx.DB
 }
 
 var logger = logging.MustGetLogger("service")
 
 func NewFileService() *FileService {
-	return &FileService{}
+	return &FileService{
+		db: db.GetSqlxDB(),
+	}
+}
+
+func (svc *FileService) create() {
+
 }
 
 func (svc *FileService) Save(fh *multipart.FileHeader) error {
